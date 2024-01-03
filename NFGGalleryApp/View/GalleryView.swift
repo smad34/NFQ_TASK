@@ -3,22 +3,23 @@
 //  NFGGalleryApp
 //
 //  Created by Mohammad Abdellahi (Speed4Trade GmbH) on 03.01.24.
-//
+//  GalleryView : display a gallery of photos with tag-based filtering functionality.
 
 import UIKit
 
 class GalleryView: SuperUIView {
     var viewModel: GalleryViewModel?
     var selectedIndexPaths: Set<IndexPath> = Set()
-    var tagButtons: [UIButton] = []
-    @IBOutlet var tagsUIView: UIView!
+    var tagButtonsManager: TagButtonsManager?
 
+    @IBOutlet var tagsUIView: UIView!
     @IBOutlet var mainCollectionView: UICollectionView!
     @IBOutlet var tagsStackView: UIStackView!
 
     @IBAction func FilterButtonAction(_ sender: UIButton) {
         tagsUIView.isHidden = false
-        createTagButtons()
+        tagButtonsManager = TagButtonsManager(stackView: tagsStackView, viewModel: viewModel!)
+        tagButtonsManager?.delegate = self
     }
 
     @IBAction func CancelButtonAction(_ sender: UIButton) {
@@ -26,7 +27,6 @@ class GalleryView: SuperUIView {
         viewModel?.loadPhotos()
         filterPhotosWithTag("")
     }
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,62 +40,27 @@ class GalleryView: SuperUIView {
     }
 
     private func setupUI() {
+        guard mainCollectionView != nil else {
+                fatalError("mainCollectionView is nil. Check your IBOutlet connection.")
+            }
         mainCollectionView.register(GalleryCell.self, forCellWithReuseIdentifier: GalleryCell.reuseIdentifier)
         mainCollectionView.dataSource = self
         mainCollectionView.delegate = self
         mainCollectionView.reloadData()
     }
 
-    private func createTagButtons() {
-        // Clear existing buttons
-        for button in tagButtons {
-            button.removeFromSuperview()
-        }
-        tagButtons.removeAll()
-
-        // Get the first 7 tags from the photos
-        let allTags = viewModel!.photos.flatMap { $0.tags }
-        let uniqueTags = Array(Set(allTags)) // Remove duplicates
-        let limitedTags = Array(uniqueTags.prefix(7)) // Get the first 7 tags
-
-        for tag in limitedTags {
-            let button = UIButton(type: .system)
-            button.setTitle(tag, for: .normal)
-            button.setTitleColor(.white, for: .normal)
-            button.backgroundColor = UIColor(named: "colorSet2")
-            button.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10) // Add padding
-            button.titleLabel?.font = UIFont.systemFont(ofSize: 14) // Adjust the font size as needed
-            button.layer.cornerRadius = 5 // Optional: Add rounded corners for a nicer appearance
-            button.addTarget(self, action: #selector(tagButtonTapped(_:)), for: .touchUpInside)
-            tagButtons.append(button)
-        }
-
-        for button in tagButtons {
-            tagsStackView.addArrangedSubview(button)
-        }
-    }
-
-    @objc func tagButtonTapped(_ sender: UIButton) {
-        // Handle button tap event
-        guard let tag = sender.title(for: .normal) else {
-            return
-        }
-        filterPhotosWithTag(tag)
-    }
-
     private func filterPhotosWithTag(_ tag: String) {
-        // Filter photos based on the selected tag
-        let filteredPhotos = viewModel?.photos.filter { photo in
-            photo.tags.contains(tag)
-        }
+           let filteredPhotos = viewModel?.photos.filter { photo in
+               photo.tags.contains(tag)
+           }
 
-        if let filteredPhotos = filteredPhotos, !filteredPhotos.isEmpty {
-            viewModel?.photos = filteredPhotos
-        } else {
-            viewModel?.loadPhotos()
-        }
-        mainCollectionView.reloadData()
-    }
+           if let filteredPhotos = filteredPhotos, !filteredPhotos.isEmpty {
+               viewModel?.photos = filteredPhotos
+           } else {
+               viewModel?.loadPhotos()
+           }
+           mainCollectionView.reloadData()
+       }
 }
 
 extension GalleryView: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -117,9 +82,9 @@ extension GalleryView: UICollectionViewDataSource, UICollectionViewDelegate, UIC
         let photo = viewModel?.photos[indexPath.item]
 
         if photo!.mode == .portrait {
-            // TODO: -
+            // TODO: - portrait configuration
         } else {
-            // TODO: -
+            // TODO: - landscape configuration
         }
         return CGSize(width: 160, height: 200)
     }
@@ -134,5 +99,11 @@ extension GalleryView: UICollectionViewDataSource, UICollectionViewDelegate, UIC
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
+    }
+}
+
+extension GalleryView: TagButtonsDelegate {
+    func tagButtonTapped(_ tag: String) {
+        filterPhotosWithTag(tag)
     }
 }
