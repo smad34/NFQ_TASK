@@ -111,9 +111,13 @@
                                             <constraint firstAttribute="width" constant="60" id="n5H-Fv-k40"/>
                                         </constraints>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" image="camera_take_photo">
+                                        <state key="normal" image="camera_go_to">
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="9" scale="small" weight="thin"/>
                                         </state>
+                                        <connections>
+                                            <action selector="cameraButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gaZ-qi-9Xl"/>
+                                            <segue destination="dSv-sO-Rmp" kind="show" id="bUD-UI-ijV"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" name="main_color_1"/>
@@ -152,11 +156,83 @@
             </objects>
             <point key="canvasLocation" x="9.9236641221374047" y="4.9295774647887329"/>
         </scene>
+        <!--Camera View-->
+        <scene sceneID="Q8R-xO-Okw">
+            <objects>
+                <viewController id="dSv-sO-Rmp" customClass="CameraView" customModule="NFGGalleryApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="df4-RZ-UMv">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B2a-o8-B0J">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8zG-Ti-dta">
+                                        <rect key="frame" x="283" y="30" width="80" height="80"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="2iw-yX-Btq"/>
+                                            <constraint firstAttribute="height" constant="80" id="U4U-c0-6on"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="80" id="jsh-W9-ihR"/>
+                                            <constraint firstAttribute="width" constant="80" id="xyq-3e-AWO"/>
+                                        </constraints>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="return_to_gallery">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="9" scale="small" weight="thin"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="galleryButton:" destination="dSv-sO-Rmp" eventType="touchUpInside" id="W3E-J8-mqn"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="8zG-Ti-dta" firstAttribute="top" secondItem="B2a-o8-B0J" secondAttribute="top" constant="30" id="8tv-pd-AOH"/>
+                                    <constraint firstAttribute="trailing" secondItem="8zG-Ti-dta" secondAttribute="trailing" constant="30" id="FZt-wY-tUS"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hjg-zi-DKT">
+                                <rect key="frame" x="156.66666666666666" y="762" width="80" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="YN8-jC-7BB"/>
+                                    <constraint firstAttribute="width" constant="80" id="vk6-Ts-Ld2"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="camera_take_photo">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="9" scale="small" weight="thin"/>
+                                </state>
+                                <connections>
+                                    <action selector="takePhotoButton:" destination="dSv-sO-Rmp" eventType="touchUpInside" id="S6s-XC-HN9"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="l8R-HP-bZ9"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="B2a-o8-B0J" firstAttribute="trailing" secondItem="l8R-HP-bZ9" secondAttribute="trailing" id="5RZ-qR-ELa"/>
+                            <constraint firstItem="hjg-zi-DKT" firstAttribute="centerX" secondItem="df4-RZ-UMv" secondAttribute="centerX" id="GRy-MF-Fx7"/>
+                            <constraint firstAttribute="bottom" secondItem="B2a-o8-B0J" secondAttribute="bottom" id="Gud-YQ-Gkf"/>
+                            <constraint firstItem="hjg-zi-DKT" firstAttribute="centerY" secondItem="df4-RZ-UMv" secondAttribute="centerY" priority="999" id="PNl-w3-fvj"/>
+                            <constraint firstItem="B2a-o8-B0J" firstAttribute="top" secondItem="df4-RZ-UMv" secondAttribute="top" id="Rde-y7-1AB"/>
+                            <constraint firstItem="B2a-o8-B0J" firstAttribute="leading" secondItem="l8R-HP-bZ9" secondAttribute="leading" id="aUj-Ac-dQG"/>
+                            <constraint firstItem="l8R-HP-bZ9" firstAttribute="bottom" secondItem="hjg-zi-DKT" secondAttribute="bottom" id="enK-i9-fh1"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="xBk-gf-YOM"/>
+                    <connections>
+                        <outlet property="previewView" destination="B2a-o8-B0J" id="2UC-1E-HOq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ftf-vJ-fqw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="696.94656488549617" y="4.9295774647887329"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="camera_go_to" width="70" height="70"/>
         <image name="camera_take_photo" width="120" height="120"/>
         <image name="close" width="24" height="24"/>
         <image name="filter" width="60" height="60"/>
+        <image name="return_to_gallery" width="70" height="72"/>
         <namedColor name="main_color_1">
             <color red="0.72500002384185791" green="0.32899999618530273" blue="0.31400001049041748" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>

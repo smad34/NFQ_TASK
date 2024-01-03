@@ -7,14 +7,36 @@
 
 import UIKit
 
-class GalleryView: UIViewController {
+class GalleryView: UIViewController{
+    func shutterButtonPressed() {
+        print("shutterButtonPressed")
+    }
+
+    func galleryButtonPressed() {
+        print("galleryButtonPressed")
+
+    }
+
+
+    
     var viewModel: GalleryViewModel?
     var selectedIndexPaths: Set<IndexPath> = Set()
     var tagButtons: [UIButton] = []
 
     @IBOutlet var mainCollectionView:UICollectionView!
     @IBOutlet weak var tagsStackView: UIStackView!
-
+    @IBAction func cameraButtonAction(_ sender: UIButton) {
+    //    let imagePicker = UIImagePickerController()
+    //    imagePicker.sourceType = .camera
+    //    imagePicker.delegate = self
+//
+    //    // Create and set your custom overlay view
+    //    let customOverlayView = CustomCameraView()
+    //    customOverlayView.delegate = self // Set the delegate to handle button presses
+    //    imagePicker.cameraOverlayView = customOverlayView
+//
+    //    present(imagePicker, animated: true, completion: nil)
+    }
     @IBAction func FilterButtonAction(_ sender: UIButton) {
         tagsUIView.isHidden = false
         createTagButtons()

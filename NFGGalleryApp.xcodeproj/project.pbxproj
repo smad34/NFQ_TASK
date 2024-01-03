@@ -20,9 +20,10 @@
 		0C24B00D2B45A39600DD2C95 /* GalleryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C24B00C2B45A39600DD2C95 /* GalleryViewModel.swift */; };
 		0C24B00F2B45A3C300DD2C95 /* GalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C24B00E2B45A3C300DD2C95 /* GalleryView.swift */; };
 		0C24B0122B45A40C00DD2C95 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C24B0112B45A40C00DD2C95 /* CameraView.swift */; };
-		0C24B0162B45A46400DD2C95 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C24B0152B45A46400DD2C95 /* FilterView.swift */; };
-		0C24B0182B45A47500DD2C95 /* EditeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C24B0172B45A47500DD2C95 /* EditeView.swift */; };
 		0C24B01A2B45A48300DD2C95 /* Cordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C24B0192B45A48300DD2C95 /* Cordinator.swift */; };
+		0C24B0282B45FFF300DD2C95 /* SuperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C24B0272B45FFF300DD2C95 /* SuperView.swift */; };
+		0C24B02A2B46006900DD2C95 /* ViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C24B0292B46006900DD2C95 /* ViewControllers.swift */; };
+		0C24B02C2B46016700DD2C95 /* Enumarates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C24B02B2B46016700DD2C95 /* Enumarates.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,9 +61,10 @@
 		0C24B00C2B45A39600DD2C95 /* GalleryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewModel.swift; sourceTree = "<group>"; };
 		0C24B00E2B45A3C300DD2C95 /* GalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryView.swift; sourceTree = "<group>"; };
 		0C24B0112B45A40C00DD2C95 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
-		0C24B0152B45A46400DD2C95 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
-		0C24B0172B45A47500DD2C95 /* EditeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditeView.swift; sourceTree = "<group>"; };
 		0C24B0192B45A48300DD2C95 /* Cordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cordinator.swift; sourceTree = "<group>"; };
+		0C24B0272B45FFF300DD2C95 /* SuperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperView.swift; sourceTree = "<group>"; };
+		0C24B0292B46006900DD2C95 /* ViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllers.swift; sourceTree = "<group>"; };
+		0C24B02B2B46016700DD2C95 /* Enumarates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enumarates.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +151,8 @@
 			isa = PBXGroup;
 			children = (
 				0C24B0072B45A32D00DD2C95 /* GalleryCell.swift */,
+				0C24B0292B46006900DD2C95 /* ViewControllers.swift */,
+				0C24B02B2B46016700DD2C95 /* Enumarates.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -174,8 +178,7 @@
 			children = (
 				0C24B00E2B45A3C300DD2C95 /* GalleryView.swift */,
 				0C24B0112B45A40C00DD2C95 /* CameraView.swift */,
-				0C24B0152B45A46400DD2C95 /* FilterView.swift */,
-				0C24B0172B45A47500DD2C95 /* EditeView.swift */,
+				0C24B0272B45FFF300DD2C95 /* SuperView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -313,12 +316,13 @@
 			files = (
 				0C24B00F2B45A3C300DD2C95 /* GalleryView.swift in Sources */,
 				0C24B0082B45A32D00DD2C95 /* GalleryCell.swift in Sources */,
-				0C24B0182B45A47500DD2C95 /* EditeView.swift in Sources */,
 				0C24B00D2B45A39600DD2C95 /* GalleryViewModel.swift in Sources */,
 				0C24AFD52B45A29100DD2C95 /* AppDelegate.swift in Sources */,
 				0C24B00B2B45A35E00DD2C95 /* PhotoModel.swift in Sources */,
 				0C24AFD72B45A29100DD2C95 /* SceneDelegate.swift in Sources */,
-				0C24B0162B45A46400DD2C95 /* FilterView.swift in Sources */,
+				0C24B02A2B46006900DD2C95 /* ViewControllers.swift in Sources */,
+				0C24B0282B45FFF300DD2C95 /* SuperView.swift in Sources */,
+				0C24B02C2B46016700DD2C95 /* Enumarates.swift in Sources */,
 				0C24B0122B45A40C00DD2C95 /* CameraView.swift in Sources */,
 				0C24B01A2B45A48300DD2C95 /* Cordinator.swift in Sources */,
 			);
