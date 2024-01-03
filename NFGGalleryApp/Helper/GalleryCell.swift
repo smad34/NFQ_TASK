@@ -43,5 +43,6 @@ class GalleryCell: UICollectionViewCell {
     func configure(with photo:PhotoModel){
         imageView.image = photo.image
     }
+    
 }
 

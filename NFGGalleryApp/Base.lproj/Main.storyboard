@@ -31,11 +31,17 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9vI-r1-hXr" userLabel="filterContainer">
                                 <rect key="frame" x="0.0" y="59" width="393" height="60"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d8W-45-AX6">
-                                        <rect key="frame" x="323" y="5" width="60" height="60"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d8W-45-AX6" userLabel="filterButton">
+                                        <rect key="frame" x="343" y="10" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="nmV-eJ-PVp"/>
+                                            <constraint firstAttribute="width" constant="40" id="wwN-Uc-2KP"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" image="filter"/>
+                                        <state key="normal" image="filter">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
+                                        </state>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alle Bilder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hll-vb-bup">
                                         <rect key="frame" x="20" y="15.000000000000002" width="101" height="27.666666666666671"/>
@@ -46,13 +52,41 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="d8W-45-AX6" firstAttribute="top" secondItem="9vI-r1-hXr" secondAttribute="top" constant="5" id="Rfx-lb-r4r"/>
+                                    <constraint firstItem="d8W-45-AX6" firstAttribute="top" secondItem="9vI-r1-hXr" secondAttribute="top" constant="10" id="54I-6Q-5QG"/>
                                     <constraint firstItem="hll-vb-bup" firstAttribute="top" secondItem="9vI-r1-hXr" secondAttribute="top" constant="15" id="cD9-2F-lF2"/>
                                     <constraint firstItem="hll-vb-bup" firstAttribute="leading" secondItem="9vI-r1-hXr" secondAttribute="leading" constant="20" id="fKn-sQ-kcL"/>
                                     <constraint firstAttribute="trailing" secondItem="d8W-45-AX6" secondAttribute="trailing" constant="10" id="kKH-9P-dMq"/>
-                                    <constraint firstItem="d8W-45-AX6" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="hll-vb-bup" secondAttribute="trailing" constant="8" symbolic="YES" id="ktg-u5-R2q"/>
                                     <constraint firstAttribute="height" constant="60" id="tb6-2P-LsI"/>
                                 </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mxa-Gw-rdp" userLabel="FilterView">
+                                <rect key="frame" x="10" y="59" width="373" height="150"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zIL-cA-SLe" userLabel="cancelButton">
+                                        <rect key="frame" x="328" y="10" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="Ye1-GQ-cL5"/>
+                                            <constraint firstAttribute="width" constant="40" id="ryW-Y1-c8Q"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="close">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" name="main_color_1"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="QPo-ka-HDF"/>
+                                    <constraint firstItem="zIL-cA-SLe" firstAttribute="top" secondItem="Mxa-Gw-rdp" secondAttribute="top" constant="10" id="bFN-Ni-eSk"/>
+                                    <constraint firstAttribute="trailing" secondItem="zIL-cA-SLe" secondAttribute="trailing" constant="5" id="qVJ-LH-Pdi"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WEC-QN-4hf" userLabel="cameraContainer">
                                 <rect key="frame" x="0.0" y="752" width="393" height="100"/>
@@ -80,9 +114,12 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="Mxa-Gw-rdp" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="4hx-BL-vwG"/>
                             <constraint firstItem="9vI-r1-hXr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="A64-c2-2aC"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="d0a-Ze-ZeN" secondAttribute="trailing" id="CJE-06-o9l"/>
+                            <constraint firstItem="Mxa-Gw-rdp" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="HAN-3i-cFE"/>
                             <constraint firstItem="d0a-Ze-ZeN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Ivv-16-1hR"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Mxa-Gw-rdp" secondAttribute="trailing" constant="10" id="KvG-JH-xMV"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="d0a-Ze-ZeN" secondAttribute="bottom" constant="60" id="MLD-4e-fk4"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="WEC-QN-4hf" secondAttribute="trailing" id="Mcz-34-Ob8"/>
                             <constraint firstItem="9vI-r1-hXr" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="PO9-bZ-cpR"/>
@@ -94,6 +131,7 @@
                     </view>
                     <connections>
                         <outlet property="mainCollectionView" destination="d0a-Ze-ZeN" id="fzr-in-bGk"/>
+                        <outlet property="tagsViewContainer" destination="Mxa-Gw-rdp" id="vIv-6h-fvc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -103,6 +141,7 @@
     </scenes>
     <resources>
         <image name="camera_take_photo" width="120" height="120"/>
+        <image name="close" width="24" height="24"/>
         <image name="filter" width="60" height="60"/>
         <namedColor name="main_color_1">
             <color red="0.72500002384185791" green="0.32899999618530273" blue="0.31400001049041748" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
