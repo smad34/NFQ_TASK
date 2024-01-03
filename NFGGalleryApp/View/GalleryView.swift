@@ -10,113 +10,103 @@ import UIKit
 class GalleryView: UIViewController {
     var viewModel: GalleryViewModel?
     var selectedIndexPaths: Set<IndexPath> = Set()
+    var tagButtons: [UIButton] = []
 
     @IBOutlet var mainCollectionView:UICollectionView!
-    @IBOutlet var tagsViewContainer:UIView!
+    @IBOutlet weak var tagsStackView: UIStackView!
 
+    @IBAction func FilterButtonAction(_ sender: UIButton) {
+        tagsUIView.isHidden = false
+        createTagButtons()
+    }
+    
+    @IBAction func CancelButtonAction(_ sender: UIButton) {
+        tagsUIView.isHidden = true
+        viewModel?.loadPhotos()
+        filterPhotosWithTag("")
+    }
+    @IBOutlet weak var tagsUIView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        setupTags()
-        handleLongPress()
         viewModel = GalleryViewModel()
         viewModel?.loadPhotos()
     }
+
 
     private func setupUI() {
         mainCollectionView.register(GalleryCell.self, forCellWithReuseIdentifier: GalleryCell.reuseIdentifier)
         mainCollectionView.dataSource = self
         mainCollectionView.delegate = self
         mainCollectionView.reloadData()
-    }
+      }
 
-    private func handleLongPress(){
-        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
-        mainCollectionView.addGestureRecognizer(longPressGesture)
-    }
-    private func setupTags(){
-        var previousButton: UIButton?
+    private func createTagButtons() {
+        // Clear existing buttons
+        for button in tagButtons {
+            button.removeFromSuperview()
+        }
+        tagButtons.removeAll()
 
-        let buttonTitles = ["Button 1", "Button 2", "Button 3", "Button 4"]
+        // Get the first 7 tags from the photos
+        let allTags = viewModel!.photos.flatMap { $0.tags }
+        let uniqueTags = Array(Set(allTags)) // Remove duplicates
+        let limitedTags = Array(uniqueTags.prefix(7)) // Get the first 7 tags
 
-              // Loop through the button titles and create buttons
-              for title in buttonTitles {
-                  let button = UIButton(type: .system)
-                  button.setTitle(title, for: .normal)
-                  button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
-
-                  // Set any other properties you may need (e.g., button frame, color, etc.)
-                  button.translatesAutoresizingMaskIntoConstraints = false
-
-                  // Add the button to the view
-                  tagsViewContainer.addSubview(button)
-                  // Set up constraints
-                             NSLayoutConstraint.activate([
-                                 button.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-                                 button.heightAnchor.constraint(equalToConstant: 40),
-
-                                 // Leading constraint to the previous button or leading of the superview for the first button
-                                 button.leadingAnchor.constraint(equalTo: previousButton?.trailingAnchor ?? view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-                             ])
-
-                             // Update the previousButton for the next iteration
-                             previousButton = button
-              }
-    }
-
-    @objc func buttonTapped(_ sender: UIButton) {
-         // Handle button tap event
-         print("Button tapped: \(sender.title(for: .normal) ?? "")")
-     }
-    @objc func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
-            if gesture.state == .began {
-                // Get the tapped point in the collection view
-                let point = gesture.location(in: mainCollectionView)
-
-                // Find the indexPath of the cell at the tapped point
-                if let indexPath = mainCollectionView.indexPathForItem(at: point) {
-                    // Toggle the selection state of the cell
-                    if selectedIndexPaths.contains(indexPath) {
-                        selectedIndexPaths.remove(indexPath)
-                    } else {
-                        selectedIndexPaths.insert(indexPath)
-                    }
-
-                    // Update the UI to reflect the selection changes
-                    mainCollectionView.reloadItems(at: [indexPath])
-                }
-            }
+        for tag in limitedTags {
+            let button = UIButton(type: .system)
+                button.setTitle(tag, for: .normal)
+                button.setTitleColor(.white, for: .normal)
+                button.backgroundColor = UIColor(named: "colorSet2")
+                button.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10) // Add padding
+                button.titleLabel?.font = UIFont.systemFont(ofSize: 14) // Adjust the font size as needed
+                button.layer.cornerRadius = 5 // Optional: Add rounded corners for a nicer appearance
+                button.addTarget(self, action: #selector(tagButtonTapped(_:)), for: .touchUpInside)
+                tagButtons.append(button)
         }
 
-    // Implement a method to handle deletion based on the selectedIndexPaths set
-    func deleteSelectedPhotos() {
-        let selectedPhotos = selectedIndexPaths.compactMap { indexPath in
-            return viewModel?.photos[indexPath.item]
+        // Add buttons to the stack view
+        for button in tagButtons {
+            tagsStackView.addArrangedSubview(button)
         }
-
-        // Perform your deletion logic here, e.g., updating the data source
-        viewModel?.deletePhotos(selectedPhotos)
-
-        // Clear the selection
-        selectedIndexPaths.removeAll()
-
-        // Reload the collection view to reflect the changes
-        mainCollectionView.reloadData()
     }
-}
+
+       @objc func tagButtonTapped(_ sender: UIButton) {
+           // Handle button tap event
+           guard let tag = sender.title(for: .normal) else { return }
+           filterPhotosWithTag(tag)
+       }
+
+       private func filterPhotosWithTag(_ tag: String) {
+           // Filter photos based on the selected tag
+           let filteredPhotos = viewModel?.photos.filter { photo in
+               return photo.tags.contains(tag)
+           }
+
+           if let filteredPhotos = filteredPhotos, !filteredPhotos.isEmpty {
+               viewModel?.photos = filteredPhotos
+           } else {
+               viewModel?.loadPhotos()
+           }
+           mainCollectionView.reloadData()
+       }
+   }
+
 
 extension GalleryView: UICollectionViewDataSource, UICollectionViewDelegate ,UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-         return viewModel?.photos.count ?? 0
+        return viewModel?.photos.count ?? 0
+
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GalleryCell.reuseIdentifier, for: indexPath) as? GalleryCell else {
             fatalError("Unable to dequeue GalleryCell")
         }
-        if let photo = viewModel?.photos[indexPath.item] {
-                   cell.configure(with: photo)
-               }
+            if let photo = viewModel?.photos[indexPath.item] {
+                cell.configure(with: photo)
+            }
         return cell
     }
 
@@ -146,3 +136,4 @@ extension GalleryView: UICollectionViewDataSource, UICollectionViewDelegate ,UIC
        }
 
 }
+

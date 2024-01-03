@@ -42,6 +42,9 @@
                                         <state key="normal" image="filter">
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
                                         </state>
+                                        <connections>
+                                            <action selector="FilterButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FQ9-ZF-M2O"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alle Bilder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hll-vb-bup">
                                         <rect key="frame" x="20" y="15.000000000000002" width="101" height="27.666666666666671"/>
@@ -59,7 +62,7 @@
                                     <constraint firstAttribute="height" constant="60" id="tb6-2P-LsI"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mxa-Gw-rdp" userLabel="FilterView">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mxa-Gw-rdp" userLabel="FilterView">
                                 <rect key="frame" x="10" y="59" width="373" height="150"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zIL-cA-SLe" userLabel="cancelButton">
@@ -74,12 +77,22 @@
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
                                         </state>
+                                        <connections>
+                                            <action selector="CancelButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FK3-Hc-DtY"/>
+                                        </connections>
                                     </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="0rl-de-ucj">
+                                        <rect key="frame" x="20" y="10" width="288" height="120"/>
+                                    </stackView>
                                 </subviews>
                                 <color key="backgroundColor" name="main_color_1"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="150" id="QPo-ka-HDF"/>
+                                    <constraint firstAttribute="height" constant="150" id="F29-2p-TYU"/>
+                                    <constraint firstAttribute="bottom" secondItem="0rl-de-ucj" secondAttribute="bottom" constant="20" id="WD6-1p-wiS"/>
                                     <constraint firstItem="zIL-cA-SLe" firstAttribute="top" secondItem="Mxa-Gw-rdp" secondAttribute="top" constant="10" id="bFN-Ni-eSk"/>
+                                    <constraint firstItem="0rl-de-ucj" firstAttribute="top" secondItem="Mxa-Gw-rdp" secondAttribute="top" constant="10" id="ggg-sq-2g7"/>
+                                    <constraint firstItem="0rl-de-ucj" firstAttribute="leading" secondItem="Mxa-Gw-rdp" secondAttribute="leading" constant="20" id="l8b-aR-Q0w"/>
+                                    <constraint firstItem="zIL-cA-SLe" firstAttribute="leading" secondItem="0rl-de-ucj" secondAttribute="trailing" constant="20" id="nBG-up-oXn"/>
                                     <constraint firstAttribute="trailing" secondItem="zIL-cA-SLe" secondAttribute="trailing" constant="5" id="qVJ-LH-Pdi"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -131,12 +144,13 @@
                     </view>
                     <connections>
                         <outlet property="mainCollectionView" destination="d0a-Ze-ZeN" id="fzr-in-bGk"/>
-                        <outlet property="tagsViewContainer" destination="Mxa-Gw-rdp" id="vIv-6h-fvc"/>
+                        <outlet property="tagsStackView" destination="0rl-de-ucj" id="rOc-1j-rOL"/>
+                        <outlet property="tagsUIView" destination="Mxa-Gw-rdp" id="5Pj-Lg-ek8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="11" y="5"/>
+            <point key="canvasLocation" x="9.9236641221374047" y="4.9295774647887329"/>
         </scene>
     </scenes>
     <resources>

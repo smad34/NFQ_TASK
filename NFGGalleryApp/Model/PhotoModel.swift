@@ -16,7 +16,7 @@ struct PhotoModel {
 extension PhotoModel {
     static func dummyData() -> [PhotoModel] {
         return [
-            PhotoModel(image: UIImage(named: "image1")!, date: Date(), tags: ["Family", "Landscape"], mode: cameraMode.portrait),
+            PhotoModel(image: UIImage(named: "image1")!, date: Date(), tags: ["Family", "Food"], mode: cameraMode.portrait),
             PhotoModel(image: UIImage(named: "image2")!, date: Date().addingTimeInterval(-3600), tags: ["Food", "Action"],mode: cameraMode.portrait),
             PhotoModel(image: UIImage(named: "image3")!, date: Date().addingTimeInterval(-4500), tags: ["Streetphotography"],mode: cameraMode.landscape),
             PhotoModel(image: UIImage(named: "image4")!, date: Date().addingTimeInterval(-6500), tags: ["Action,"],mode: cameraMode.portrait),
