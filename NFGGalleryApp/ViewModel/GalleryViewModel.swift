@@ -14,10 +14,9 @@ class GalleryViewModel {
     func loadPhotos() {
         photos = PhotoModel.dummyData()
     }
-    
+
     func addNewPhoto(image: UIImage) {
         let newPhoto = PhotoModel(image: image, date: Date(), tags: [], mode: .portrait)
         photos.append(newPhoto)
     }
-
 }

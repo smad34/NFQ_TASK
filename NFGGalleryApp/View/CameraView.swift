@@ -9,6 +9,8 @@ import UIKit
 import AVFoundation
 
 class CameraView: SuperUIView, AVCapturePhotoCaptureDelegate {
+    var viewModel: GalleryViewModel?
+
     var captureSession: AVCaptureSession!
     var stillImageOutput: AVCapturePhotoOutput!
     var videoPreviewLayer: AVCaptureVideoPreviewLayer!
@@ -18,6 +20,8 @@ class CameraView: SuperUIView, AVCapturePhotoCaptureDelegate {
     @IBAction func takePhotoButton(_ sender: UIButton) {
         let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
         stillImageOutput.capturePhoto(with: settings, delegate: self)
+        // TODO: transfer data to the view model and update Gallery
+        // viewModel?.addNewPhoto(...)
     }
 
     @IBAction func galleryButton(_ sender: UIButton) {

@@ -115,7 +115,6 @@
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="9" scale="small" weight="thin"/>
                                         </state>
                                         <connections>
-                                            <action selector="cameraButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gaZ-qi-9Xl"/>
                                             <segue destination="dSv-sO-Rmp" kind="show" id="bUD-UI-ijV"/>
                                         </connections>
                                     </button>
