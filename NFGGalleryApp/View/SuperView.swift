@@ -3,7 +3,7 @@
 //  NFGGalleryApp
 //
 //  Created by Mohammad Abdellahi (Speed4Trade GmbH) on 03.01.24.
-//
+// SuperUIView : implement public function like toast , navigate ...
 
 import UIKit
 
