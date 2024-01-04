@@ -146,7 +146,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="mainCollectionView" destination="d0a-Ze-ZeN" id="fzr-in-bGk"/>
+                        <outlet property="mainCollectionView" destination="d0a-Ze-ZeN" id="EbZ-i3-RvW"/>
                         <outlet property="tagsStackView" destination="0rl-de-ucj" id="rOc-1j-rOL"/>
                         <outlet property="tagsUIView" destination="Mxa-Gw-rdp" id="5Pj-Lg-ek8"/>
                     </connections>

@@ -15,12 +15,14 @@ class CameraView: SuperUIView, AVCapturePhotoCaptureDelegate {
     var stillImageOutput: AVCapturePhotoOutput!
     var videoPreviewLayer: AVCaptureVideoPreviewLayer!
 
+    //MARK: - IBOutlets
     @IBOutlet weak var previewView: UIView!
 
+    //MARK: - IBActions
     @IBAction func takePhotoButton(_ sender: UIButton) {
-        let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
-        stillImageOutput.capturePhoto(with: settings, delegate: self)
         // TODO: transfer data to the view model and update Gallery
+       // let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
+       // stillImageOutput.capturePhoto(with: settings, delegate: self)
         // viewModel?.addNewPhoto(...)
     }
 
@@ -28,6 +30,7 @@ class CameraView: SuperUIView, AVCapturePhotoCaptureDelegate {
         dismiss(animated: true)
     }
 
+    //MARK: - overrides
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.captureSession.stopRunning()
@@ -71,11 +74,12 @@ class CameraView: SuperUIView, AVCapturePhotoCaptureDelegate {
         }
     }
 
+    //MARK: - Main Functions
     func setupLivePreview() {
         videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
 
         videoPreviewLayer.videoGravity = .resizeAspect
-        videoPreviewLayer.connection?.videoOrientation = .portrait
+       // videoPreviewLayer.connection?.videoOrientation = .portrait
         previewView.layer.addSublayer(videoPreviewLayer)
 
         DispatchQueue.global(qos: .userInitiated).async {

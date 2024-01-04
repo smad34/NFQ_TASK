@@ -3,16 +3,12 @@
 //  NFGGalleryApp
 //
 //  Created by Mohammad Abdellahi (Speed4Trade GmbH) on 03.01.24.
-//
+//  custom module for implement tags list and handle them
 
 import UIKit
 
-protocol TagButtonsDelegate: AnyObject {
-    func tagButtonTapped(_ tag: String)
-}
-
-class TagButtonsManager {
-    weak var delegate: TagButtonsDelegate?
+class PfUITagButton {
+    var onTagButtonTapped: ((String) -> Void)?
     private var tagButtons: [UIButton] = []
 
     init(stackView: UIStackView, viewModel: GalleryViewModel) {
@@ -29,20 +25,22 @@ class TagButtonsManager {
         // Get the first 7 tags from the photos
         let allTags = viewModel.photos.flatMap { $0.tags }
         let uniqueTags = Array(Set(allTags)) // Remove duplicates
-        let limitedTags = Array(uniqueTags.prefix(7)) // Get the first 7 tags
+        let limitedTags = Array(uniqueTags.prefix(7)) // Get the first 7 tags (temporary)
 
         for tag in limitedTags {
             let button = UIButton(type: .system)
+            button.translatesAutoresizingMaskIntoConstraints = false
             button.setTitle(tag, for: .normal)
             button.setTitleColor(.white, for: .normal)
             button.backgroundColor = UIColor(named: "colorSet2")
-            button.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
             button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
             button.layer.cornerRadius = 5 
             button.addTarget(self, action: #selector(tagButtonTapped(_:)), for: .touchUpInside)
+            var configuration = UIButton.Configuration.plain()
+            configuration.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 10, bottom: 5, trailing: 10)
+            button.configuration = configuration
             tagButtons.append(button)
         }
-
         for button in tagButtons {
             stackView.addArrangedSubview(button)
         }
@@ -52,6 +50,6 @@ class TagButtonsManager {
         guard let tag = sender.title(for: .normal) else {
             return
         }
-        delegate?.tagButtonTapped(tag)
+        onTagButtonTapped?(tag)
     }
 }

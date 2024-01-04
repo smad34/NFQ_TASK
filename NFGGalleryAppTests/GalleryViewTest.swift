@@ -14,7 +14,8 @@ class GalleryViewTests: XCTestCase {
 
     override func setUpWithError() throws {
         try super.setUpWithError()
-        galleryView = GalleryView()
+        let storyboard = UIStoryboard(name: ViewControllers.STORYBOARD, bundle: nil)
+        galleryView = storyboard.instantiateViewController(withIdentifier: "GalleryView") as? GalleryView
         galleryView.loadViewIfNeeded()
     }
 
@@ -32,6 +33,8 @@ class GalleryViewTests: XCTestCase {
 
         // Then
         XCTAssertFalse(galleryView.tagsUIView.isHidden, "TagsUIView should be visible after FilterButtonAction")
+
+        // Additional assertions if needed
         XCTAssertNotNil(galleryView.tagButtonsManager, "TagButtonsManager should be instantiated")
     }
 
@@ -44,5 +47,9 @@ class GalleryViewTests: XCTestCase {
 
         // Then
         XCTAssertTrue(galleryView.tagsUIView.isHidden, "TagsUIView should be hidden after CancelButtonAction")
+
+        // Additional assertions if needed
+        // For example, if you expect photos to be reloaded after canceling, you can assert that the viewModel's photos array is not empty.
+        XCTAssertFalse(galleryView.viewModel?.photos.isEmpty ?? true, "Photos should not be empty after CancelButtonAction")
     }
 }

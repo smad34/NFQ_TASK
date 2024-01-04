@@ -7,7 +7,6 @@
 
 import UIKit
 
-// GalleryCell.swift
 class GalleryCell: UICollectionViewCell {
     static let reuseIdentifier = "GalleryCell"
 

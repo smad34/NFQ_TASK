@@ -5,63 +5,81 @@
 //  Created by Mohammad Abdellahi (Speed4Trade GmbH) on 03.01.24.
 //  GalleryView : display a gallery of photos with tag-based filtering functionality.
 
+import Photos
 import UIKit
-
 class GalleryView: SuperUIView {
     var viewModel: GalleryViewModel?
     var selectedIndexPaths: Set<IndexPath> = Set()
-    var tagButtonsManager: TagButtonsManager?
+    var tagButtonsManager: PfUITagButton?
+
+    // MARK: - IBOutlets
 
     @IBOutlet var tagsUIView: UIView!
     @IBOutlet var mainCollectionView: UICollectionView!
     @IBOutlet var tagsStackView: UIStackView!
 
+    // MARK: - IBActions
+
     @IBAction func FilterButtonAction(_ sender: UIButton) {
         tagsUIView.isHidden = false
-        tagButtonsManager = TagButtonsManager(stackView: tagsStackView, viewModel: viewModel!)
-        tagButtonsManager?.delegate = self
     }
 
     @IBAction func CancelButtonAction(_ sender: UIButton) {
         tagsUIView.isHidden = true
         viewModel?.loadPhotos()
-        filterPhotosWithTag("")
     }
+
+    // MARK: - overrides
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         initData()
+        setupTagsManager()
+        getPermissions()
     }
 
-    private func initData() {
-        viewModel = GalleryViewModel()
-        viewModel?.loadPhotos()
-    }
+    // MARK: - Main Functions
 
     private func setupUI() {
         guard mainCollectionView != nil else {
-                fatalError("mainCollectionView is nil. Check your IBOutlet connection.")
-            }
+            fatalError("mainCollectionView is nil. Check your IBOutlet connection.")
+        }
         mainCollectionView.register(GalleryCell.self, forCellWithReuseIdentifier: GalleryCell.reuseIdentifier)
         mainCollectionView.dataSource = self
         mainCollectionView.delegate = self
         mainCollectionView.reloadData()
     }
 
-    private func filterPhotosWithTag(_ tag: String) {
-           let filteredPhotos = viewModel?.photos.filter { photo in
-               photo.tags.contains(tag)
-           }
+    private func initData() {
+        viewModel = GalleryViewModel()
+        viewModel?.loadPhotos()
+        viewModel?.onPhotosUpdate = { [weak self] in
+            self?.mainCollectionView.reloadData()
+        }
+    }
 
-           if let filteredPhotos = filteredPhotos, !filteredPhotos.isEmpty {
-               viewModel?.photos = filteredPhotos
-           } else {
-               viewModel?.loadPhotos()
-           }
-           mainCollectionView.reloadData()
-       }
+    private func setupTagsManager() {
+        tagButtonsManager = PfUITagButton(stackView: tagsStackView, viewModel: viewModel!)
+        tagButtonsManager?.onTagButtonTapped = { [weak self] tag in // Set the closure to handle tag button tapping
+            self?.viewModel!.filterPhotosWithTag(tag)
+        }
+    }
+
+    private func getPermissions() {
+        PHPhotoLibrary.requestAuthorization { _ in
+            // TODO: when use the real gallery instead of dummy data need to config cases:
+            // switch status {
+            // case .authorized:
+            // case .denied:
+            // case .restricted:
+        }
+        AVCaptureDevice.requestAccess(for: .video) { _ in
+        }
+    }
 }
+
+// MARK: - Collection view Configuration
 
 extension GalleryView: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -99,11 +117,5 @@ extension GalleryView: UICollectionViewDataSource, UICollectionViewDelegate, UIC
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
-    }
-}
-
-extension GalleryView: TagButtonsDelegate {
-    func tagButtonTapped(_ tag: String) {
-        filterPhotosWithTag(tag)
     }
 }

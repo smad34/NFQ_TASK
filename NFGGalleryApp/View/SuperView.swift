@@ -45,9 +45,9 @@ class SuperUIView: UIViewController {
             toastLabel.textColor = UIColor.white
             switch type {
             case Enumerates.ToastColor.success:
-                toastLabel.backgroundColor = UIColor(named: "success")!
+                toastLabel.backgroundColor = UIColor.green
             case Enumerates.ToastColor.error:
-                toastLabel.backgroundColor = UIColor(named: "error")
+                toastLabel.backgroundColor = UIColor.red
             case Enumerates.ToastColor.warning:
                 toastLabel.backgroundColor = UIColor.orange
             }
@@ -59,7 +59,6 @@ class SuperUIView: UIViewController {
             })
         }
     }
-
 
     func getStoryboard() -> UIStoryboard {
         return UIStoryboard(name: ViewControllers.STORYBOARD, bundle: nil)
